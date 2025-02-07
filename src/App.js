@@ -15,10 +15,12 @@ function App() {
 <BrowserRouter>
 
 <Link to="/about">press</Link>
+<Link to="/profile">profilepress</Link>
       <Routes>
         
-        <Route path="/about" Component={ About }>
-        </Route>
+        <Route path="/about" Component={ About } />
+        <Route path="/profile" element={<h1>hello world</h1>} />
+        
       </Routes>
   </BrowserRouter>
 
