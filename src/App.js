@@ -1,30 +1,22 @@
-import logo from './logo.svg';
-import About from './container/About';
-import Profile from './container/Profile';
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+// import logo from './logo.svg';
+// import About from './container/About';
+// import Profile from './container/Profile';
+// import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { db} from './firebase/config';
 
-import { AppContext } from './Context';
+//import { AppContext } from './Context';
 
 function App() {
   const[state,setState]=useState(10)
- const navigate = useNavigate() 
+  
   return (
   
     
       <div className="App">
-        <nav>
-          <button onClick={() => navigate('/about')}>About</button>
-          <button onClick={() => navigate('/profile')}>Profile</button>
-        </nav>
-              <AppContext.Provider  value={{data:state}}>
-        <Routes>
-        
-          <Route path="/about" element={<About />} />
-          <Route   path="/profile" element={<Profile />} />
-          
-        </Routes>
-        </AppContext.Provider>
+        <button onClick={()=>{
+         db.collection('users').doc('liam').get().then()
+        }} ></button>
       </div>
     
   );
