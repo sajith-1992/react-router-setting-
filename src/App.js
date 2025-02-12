@@ -1,27 +1,30 @@
-
- import React  from 'react';
-// import About from './container/About';
-// import Profile from './container/Profile';
-// import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
-
-
-import {   setDoc ,doc} from "firebase/firestore";
-import { db } from './firebase/config'// Ensure you have initialized Firestore and exported `db`
+import React from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {signInWithEmailAndPassword} from "firebase/auth"
+import { collection, getDocs } from "firebase/firestore";
+import { db } from './firebase/config'; // Ensure you have initialized Firestore and exported `db`
 
 function App() {
   const handleClick = async () => {
-    
+    const colRef = collection(db, 'users');
+    const auth = getAuth();
     try {
-      await setDoc(doc(db, "users", "LA"), {
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA"
-      })
-      
+      const userCredential = await createUserWithEmailAndPassword(auth, "sajithmohanplavalappil@gmail.com", "Mohan1992@");
+      console.log("User signed up:", userCredential.user);
+
+      const usersCredential = await signInWithEmailAndPassword(auth,  "sajithmohanplavalappil@gmail.com", "Mohan1992@");
+      console.log("User signed in:", usersCredential.user);
+      const snapshot = await getDocs(colRef);
+      snapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+
+
     } catch (error) {
-      console.error("Error fetching documents: ", error);
+      console.error("Error signing up:", error.message);
     }
-  };
+  
+  }
 
   return (
     <div className="App">
